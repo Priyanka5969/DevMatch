@@ -49,6 +49,11 @@ app.use('/admin' , adminauth);
 app.get('/admin/getAdmindata',(req,res)=>{
     throw new Error('xyz');
     res.send("get user data");
+    // try{
+    //     throw new Error('xyz');
+    // }catch(err){
+    //     res.status(500).send(" getting err through try-catch");
+    // }
 });
 app.get('/admin/adminProfile',(req,res)=>{
     res.send("get user data");
