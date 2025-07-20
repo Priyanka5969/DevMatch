@@ -3,6 +3,8 @@ console.log("Starting a new project");
 const express = require('express');
 const app = express();
 
+const { adminauth, userAuth } =  require('../middlewares/auth');
+
 // this will take any api and give same res only even if we have other like /test .... 
 //_______________________
 // app.use((req,res)=>{
@@ -31,6 +33,23 @@ app.use('/test',(req,res,next)=>{
 );
 
 
+//middleware using for auth
+app.use('/admin' , adminauth);
+
+app.get('/admin/getAdmindata',(req,res)=>{
+    res.send("get user data");
+});
+
+app.get('/admin/adminProfile',(req,res)=>{
+    res.send("get user data");
+});
+
+
+//if we have only one api the instead of app.use directly add in
+app.get('/user', userAuth , (req,res) => {
+    console.log("with auth calling route handler for user");
+})
+
 //---------------- if not sending response at end then get error can't /get
 // app.use('/moreHandler',(req,res,next)=>{
 //     console.log("moreHandler");
@@ -50,10 +69,10 @@ app.use('/test',(req,res,next)=>{
 //     res.send("two");
 // });
 
-app.get('/user',(req,res)=>{
-    //res.send("user data");
-  //  res.send({"name" : "priyanka", "age": 23});
-});
+// app.get('/user',(req,res)=>{
+//     //res.send("user data");
+//   //  res.send({"name" : "priyanka", "age": 23});
+// });
 
 // ? means b is optional , can search /ac
 // * means allow in betwne anything
