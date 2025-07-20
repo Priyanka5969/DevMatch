@@ -15,9 +15,36 @@ const app = express();
 // _________________________
 
 //will match all http methods post ,get
-app.use('/test',(req,res)=>{
-    res.send("tested");
-});
+
+//if next is previous then it will go to next route handler
+//if next is after res.send .... then also it wil go to next and if in next route handler we again using res.send then give error as tcp connection lost cant set headers again
+
+app.use('/test',(req,res,next)=>{
+    console.log("firsttt");
+    next();
+   //res.send("tested");
+   // next();
+},
+(req,res) => {
+    res.send("tested 2");
+}
+);
+
+
+//---------------- if not sending response at end then get error can't /get
+// app.use('/moreHandler',(req,res,next)=>{
+//     console.log("moreHandler");
+//     next();
+//    //res.send("tested");
+//    // next();
+// },
+// (req,res,next) => {
+//     console.log("tested 2");
+//     next();
+// }
+
+// );
+
 
 // app.use('/hello',(req,res)=>{
 //     res.send("two");
@@ -25,17 +52,17 @@ app.use('/test',(req,res)=>{
 
 app.get('/user',(req,res)=>{
     //res.send("user data");
-    res.send({"name" : "priyanka", "age": 23});
+  //  res.send({"name" : "priyanka", "age": 23});
 });
 
 // ? means b is optional , can search /ac
 // * means allow in betwne anything
 // + means many more that number allowed
 
-app.get("/ab?c",(req,res)=>{
-    //res.send("user data");
-    res.send({"name" : "priyanka", "age": 23});
-});
+// app.get("/ab?c",(req,res)=>{
+//     //res.send("user data");
+//     res.send({"name" : "priyanka", "age": 23});
+// });
 
 // /userdata/707
 // /userdata/102
