@@ -27,6 +27,28 @@ app.get('/user',(req,res)=>{
     //res.send("user data");
     res.send({"name" : "priyanka", "age": 23});
 });
+
+// ? means b is optional , can search /ac
+// * means allow in betwne anything
+// + means many more that number allowed
+
+app.get("/ab?c",(req,res)=>{
+    //res.send("user data");
+    res.send({"name" : "priyanka", "age": 23});
+});
+
+// /userdata/707
+// /userdata/102
+app.get('/userdata/:userId/:age',(req,res)=>{
+    res.send(req.params);
+});
+
+
+// userquery?userId=707&password=abc
+app.get('/userquery',(req,res)=>{
+    res.send(req.query);
+});
+
 app.post('/user',(req,res)=>{
     res.send("posting user data");
     //res.send({"name" : "priyanka", "age": 23});
