@@ -36,13 +36,28 @@ app.use('/test',(req,res,next)=>{
 //middleware using for auth
 app.use('/admin' , adminauth);
 
+
+// we should write this err middleware before or else it wont give first error
+// ________________________________________________________
+// app.use('/', (err, req,res,next) => {
+//     if(err){
+//         res.status(500).send("Wrong - getting err through middleware");
+//     }
+// })
+// _________________________________________________________
+
 app.get('/admin/getAdmindata',(req,res)=>{
+    throw new Error('xyz');
     res.send("get user data");
 });
-
 app.get('/admin/adminProfile',(req,res)=>{
     res.send("get user data");
 });
+app.use('/', (err, req,res,next) => {
+    if(err){
+        res.status(500).send("Wrong - getting err through middleware");
+    }
+})
 
 
 //if we have only one api the instead of app.use directly add in
